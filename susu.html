@@ -176,55 +176,67 @@
       font-size: 2.8rem;
     }
 
-    /* Animasi Truk Distribusi Maju Mundur Natural & Lebih Lambat (12s) */
+    /* Animasi Lucu & Hidup: Truk Jalan Halus dari Sapi ke Pelanggan */
     .delivery-animation-banner {
       max-width: 1140px;
       margin: 10px auto 28px;
       padding: 0 20px;
     }
     .delivery-track {
-      background: rgba(255, 255, 255, 0.5);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.85);
-      border-radius: 18px;
-      padding: 14px 20px;
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      padding: 16px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0, 119, 182, 0.05);
+      box-shadow: 0 10px 30px rgba(0, 119, 182, 0.06);
     }
     .track-icon {
       font-size: 2rem;
       z-index: 2;
-      background: rgba(255, 255, 255, 0.8);
-      padding: 6px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.9);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+      background: rgba(255, 255, 255, 0.9);
+      padding: 8px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.95);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      animation: bounceIcon 2s ease-in-out infinite;
+    }
+    .customer-icon {
+      animation-delay: 1s;
+    }
+    @keyframes bounceIcon {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
     }
     .moving-truck {
       position: absolute;
-      font-size: 1.8rem;
-      animation: driveTruck 12s ease-in-out infinite;
+      font-size: 1.9rem;
+      animation: driveTruck 11s ease-in-out infinite;
       z-index: 2;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
     }
     .road-line {
       position: absolute;
       width: 100%;
-      height: 2px;
-      border-bottom: 2px dashed rgba(0, 119, 182, 0.3);
-      top: 55%;
+      height: 3px;
+      border-bottom: 3px dashed rgba(0, 119, 182, 0.35);
+      top: 58%;
       left: 0;
       z-index: 1;
     }
     @keyframes driveTruck {
-      0%   { left: 6%; transform: scaleX(1); }    /* Start dari Sapi menghadap ke kanan (maju) */
-      48%  { left: 85%; transform: scaleX(1); }   /* Sampai di Pembeli */
-      52%  { left: 85%; transform: scaleX(-1); }  /* Putar balik menghadap ke kiri */
-      100% { left: 6%; transform: scaleX(-1); }   /* Pulang ke Sapi menghadap ke kiri (maju) */
+      0%   { left: 7%; transform: scaleX(1) translateY(0); }       /* Start dari Sapi menghadap ke kanan */
+      45%  { left: 83%; transform: scaleX(1) translateY(0); }      /* Sampai di Rumah Pelanggan */
+      48%  { left: 83%; transform: scaleX(1) translateY(-3px); }   /* Sedikit loncat girang pas sampai */
+      50%  { left: 83%; transform: scaleX(-1) translateY(0); }     /* Putar balik menghadap ke kiri */
+      95%  { left: 7%; transform: scaleX(-1) translateY(0); }      /* Pulang ke kandang */
+      98%  { left: 7%; transform: scaleX(-1) translateY(-3px); }   /* Sampai di kandang */
+      100% { left: 7%; transform: scaleX(1) translateY(0); }       /* Reset menghadap kanan */
     }
 
     /* Filter Tabs Liquid Glass */
@@ -620,13 +632,13 @@
     </div>
   </section>
 
-  <!-- Animasi Lucu: Truk Box Maju Mundur Natural dari Sapi ke Pelanggan -->
+  <!-- Animasi Lucu & Hidup: Truk Jalan Halus dari Sapi ke Pelanggan -->
   <div class="delivery-animation-banner">
     <div class="delivery-track">
       <div class="track-icon" title="Peternakan Sapi Perah">🐄</div>
       <div class="road-line"></div>
       <div class="moving-truck" title="Truk Distribusi Susu Nasional">🚚</div>
-      <div class="track-icon" title="Pembeli / Pelanggan">🧑‍💼🛍️</div>
+      <div class="track-icon customer-icon" title="Rumah Pelanggan Setia">🏠🛍️</div>
     </div>
   </div>
 
