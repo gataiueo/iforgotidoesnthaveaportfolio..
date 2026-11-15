@@ -9,11 +9,10 @@
       --primary: #0077b6;
       --primary-dark: #023e8a;
       --accent: #00b4d8;
-      --bg: #f4f7fa;
-      --surface: rgba(255, 255, 255, 0.7);
+      --surface: rgba(255, 255, 255, 0.65);
       --text: #1e293b;
       --muted: #64748b;
-      --border: rgba(255, 255, 255, 0.9);
+      --border: rgba(255, 255, 255, 0.85);
       --success: #10b981;
       --warning: #f59e0b;
     }
@@ -21,22 +20,27 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: linear-gradient(135deg, #f0f4f8 0%, #e8eff5 100%);
+      /* Background Liquid Glass Bias Biru Seger ala Apple */
+      background: 
+        radial-gradient(circle at 15% 15%, rgba(200, 235, 255, 0.9), transparent 45%),
+        radial-gradient(circle at 85% 85%, rgba(175, 215, 255, 0.8), transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(225, 245, 255, 0.95), rgba(210, 228, 245, 0.9));
+      background-attachment: fixed;
       color: var(--text);
       padding-bottom: 60px;
       min-height: 100vh;
     }
 
-    /* Navbar */
+    /* Navbar Liquid Glass */
     header {
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 4px 20px rgba(0, 119, 182, 0.06);
     }
     .nav-container {
       max-width: 1140px;
@@ -55,11 +59,12 @@
       font-weight: 600;
       padding: 6px 12px;
       border-radius: 8px;
-      border: 1px solid #cbd5e1;
-      background: #ffffff;
+      border: 1px solid rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.5);
+      backdrop-filter: blur(6px);
       transition: 0.2s;
     }
-    .back-btn:hover { background: var(--bg); color: var(--text); }
+    .back-btn:hover { background: #fff; color: var(--text); }
     .logo { font-weight: 800; font-size: 1.15rem; color: var(--primary-dark); letter-spacing: -0.02em; }
     .logo span { color: var(--accent); }
 
@@ -71,13 +76,15 @@
     .search-bar input {
       width: 100%;
       padding: 9px 14px;
-      border: 1px solid #cbd5e1;
-      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.9);
+      border-radius: 12px;
       font-size: 0.9rem;
       outline: none;
-      background: #ffffff;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(8px);
+      transition: 0.2s;
     }
-    .search-bar input:focus { border-color: var(--primary); }
+    .search-bar input:focus { border-color: var(--primary); background: rgba(255,255,255,0.95); }
 
     .cart-trigger {
       position: relative;
@@ -85,12 +92,13 @@
       color: white;
       border: none;
       padding: 10px 16px;
-      border-radius: 10px;
+      border-radius: 12px;
       font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 8px;
+      box-shadow: 0 4px 12px rgba(0,119,182,0.2);
       transition: 0.2s;
     }
     .cart-trigger:hover { background: var(--primary-dark); }
@@ -102,7 +110,7 @@
       border-radius: 999px;
     }
 
-    /* Seamless Editorial Hero Section (Tanpa Kotak Biru Pekat) */
+    /* Seamless Editorial Hero Section */
     .hero-section {
       max-width: 1140px;
       margin: 36px auto 24px;
@@ -134,29 +142,30 @@
     }
     .badge-fresh {
       display: inline-block;
-      background: rgba(0, 119, 182, 0.08);
+      background: rgba(0, 119, 182, 0.1);
       color: var(--primary-dark);
       padding: 6px 14px;
       border-radius: 999px;
       font-size: 0.78rem;
       font-weight: 700;
       letter-spacing: 0.02em;
-      border: 1px solid rgba(0, 119, 182, 0.15);
+      border: 1px solid rgba(0, 119, 182, 0.2);
+      backdrop-filter: blur(6px);
     }
 
-    /* Slot Logo Resmi di Samping Kanan Teks */
+    /* Slot Logo Resmi Liquid Glass */
     .hero-logo-slot {
       width: 110px;
       height: 110px;
-      background: rgba(255, 255, 255, 0.75);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border: 1px solid rgba(255, 255, 255, 0.9);
-      border-radius: 22px;
+      border-radius: 24px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 12px 30px rgba(0, 119, 182, 0.08);
+      box-shadow: 0 12px 30px rgba(0, 119, 182, 0.1);
       flex-shrink: 0;
     }
     .hero-logo-slot img {
@@ -168,7 +177,7 @@
       font-size: 2.8rem;
     }
 
-    /* Filter Tabs */
+    /* Filter Tabs Liquid Glass */
     .filters {
       max-width: 1140px;
       margin: 10px auto 20px;
@@ -180,8 +189,9 @@
     .filter-btn {
       padding: 8px 18px;
       border-radius: 999px;
-      border: 1px solid #cbd5e1;
-      background: #ffffff;
+      border: 1px solid rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.5);
+      backdrop-filter: blur(8px);
       color: var(--muted);
       font-weight: 600;
       font-size: 0.85rem;
@@ -193,7 +203,7 @@
       background: var(--primary);
       color: white;
       border-color: var(--primary);
-      box-shadow: 0 4px 12px rgba(0,119,182,0.2);
+      box-shadow: 0 4px 12px rgba(0,119,182,0.25);
     }
 
     /* Product Grid & Liquid Glass Cards */
@@ -208,20 +218,20 @@
       gap: 22px;
     }
     .product-card {
-      background: rgba(255, 255, 255, 0.65);
-      backdrop-filter: blur(14px) saturate(180%);
-      -webkit-backdrop-filter: blur(14px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.85);
-      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: 22px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 12px 32px rgba(0,0,0,0.05);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 16px 32px rgba(0, 119, 182, 0.08);
       transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
     .product-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 18px 36px rgba(0, 119, 182, 0.12);
+      transform: translateY(-5px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,1), 0 22px 40px rgba(0, 119, 182, 0.15);
     }
     .product-visual {
       height: 160px;
@@ -232,17 +242,18 @@
       position: relative;
       transition: background 0.3s ease;
     }
-    .product-emoji { font-size: 3.4rem; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1)); }
+    .product-emoji { font-size: 3.4rem; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.12)); }
     .product-tag {
       position: absolute;
       top: 12px;
       left: 12px;
-      background: rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(6px);
       color: var(--primary-dark);
       font-size: 0.7rem;
       font-weight: 800;
       padding: 4px 10px;
-      border-radius: 6px;
+      border-radius: 8px;
       text-transform: uppercase;
     }
     .product-body {
@@ -267,8 +278,8 @@
       padding: 5px 10px;
       font-size: 0.78rem;
       border-radius: 8px;
-      border: 1px solid #cbd5e1;
-      background: rgba(255,255,255,0.8);
+      border: 1px solid rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.5);
       color: var(--text);
       cursor: pointer;
       font-weight: 600;
@@ -287,21 +298,22 @@
       background: var(--primary);
       color: white;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       font-weight: 700;
       cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,119,182,0.2);
       transition: 0.2s;
     }
     .add-cart-btn:hover { background: var(--primary-dark); }
 
-    /* Drawer / Modal */
+    /* Drawer / Modal Liquid Glass */
     .overlay {
       position: fixed;
       inset: 0;
       background: rgba(15, 23, 42, 0.4);
       z-index: 90;
       display: none;
-      backdrop-filter: blur(3px);
+      backdrop-filter: blur(4px);
     }
     .overlay.open { display: block; }
 
@@ -312,18 +324,20 @@
       width: 100%;
       max-width: 400px;
       height: 100vh;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(16px);
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       z-index: 100;
       display: flex;
       flex-direction: column;
       transition: right 0.3s ease;
-      box-shadow: -8px 0 24px rgba(0,0,0,0.1);
+      box-shadow: -12px 0 30px rgba(0,0,0,0.1);
+      border-left: 1px solid rgba(255,255,255,0.9);
     }
     .cart-drawer.open { right: 0; }
     .drawer-header {
       padding: 18px 20px;
-      border-bottom: 1px solid #cbd5e1;
+      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -345,7 +359,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 12px 0;
-      border-bottom: 1px solid #cbd5e1;
+      border-bottom: 1px solid rgba(226, 232, 240, 0.6);
       gap: 12px;
     }
     .item-info h4 { font-size: 0.92rem; margin-bottom: 2px; }
@@ -360,15 +374,15 @@
       width: 26px;
       height: 26px;
       border-radius: 6px;
-      border: 1px solid #cbd5e1;
-      background: #ffffff;
+      border: 1px solid rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.7);
       font-weight: 700;
       cursor: pointer;
     }
     .drawer-footer {
       padding: 18px 20px;
-      border-top: 1px solid #cbd5e1;
-      background: #f8fafc;
+      border-top: 1px solid rgba(226, 232, 240, 0.8);
+      background: rgba(244, 247, 250, 0.5);
     }
     .total-row {
       display: flex;
@@ -383,12 +397,13 @@
       background: var(--success);
       color: white;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       font-weight: 700;
       font-size: 0.95rem;
       cursor: pointer;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
     }
-    .checkout-btn:disabled { background: #cbd5e1; cursor: not-allowed; }
+    .checkout-btn:disabled { background: #cbd5e1; box-shadow: none; cursor: not-allowed; }
 
     /* Checkout & Invoice Modal */
     .modal {
@@ -398,16 +413,17 @@
       transform: translate(-50%, -50%);
       width: 92%;
       max-width: 460px;
-      background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(16px);
-      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 24px;
       z-index: 110;
       padding: 24px;
       display: none;
       max-height: 90vh;
       overflow-y: auto;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-      border: 1px solid rgba(255,255,255,0.9);
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.9);
     }
     .modal.open { display: block; }
     .form-group { margin-bottom: 14px; }
@@ -415,11 +431,11 @@
     .form-group input, .form-group textarea, .form-group select {
       width: 100%;
       padding: 10px 12px;
-      border: 1px solid #cbd5e1;
+      border: 1px solid rgba(203, 213, 225, 0.8);
       border-radius: 10px;
       font-family: inherit;
       font-size: 0.9rem;
-      background: #ffffff;
+      background: rgba(255, 255, 255, 0.8);
     }
 
     /* Payment Box & Upload Area */
@@ -439,10 +455,10 @@
     }
     .pay-card {
       margin-top: 12px;
-      background: #ffffff;
+      background: rgba(255, 255, 255, 0.8);
       padding: 14px;
-      border-radius: 12px;
-      border: 1px solid #cbd5e1;
+      border-radius: 14px;
+      border: 1px solid rgba(203, 213, 225, 0.8);
       text-align: center;
     }
     .rek-row {
@@ -474,8 +490,8 @@
       margin-top: 14px;
       padding: 12px;
       border: 1.5px dashed #94a3b8;
-      border-radius: 12px;
-      background: #f8fafc;
+      border-radius: 14px;
+      background: rgba(248, 250, 252, 0.7);
       text-align: center;
     }
     .upload-label {
@@ -541,14 +557,13 @@
     </div>
   </header>
 
-  <!-- Seamless Editorial Hero Section (Tanpa Kotak Biru) -->
+  <!-- Seamless Editorial Hero Section -->
   <section class="hero-section">
     <div class="hero-text-area">
       <span class="badge-fresh">Susu Murni Kepercayaan Keluarga Indonesia • Since 1999</span>
       <h1 style="margin-top: 10px;">Hadirkan Segarnya Susu Murni Nasional</h1>
       <p>Pesan langsung produk susu cup, minipack, prepack tawar, hingga yogurt segar. Dikirim dingin langsung dari jalur distribusi resmi.</p>
     </div>
-    <!-- Slot Logo Resmi (Nanti tinggal aktifkan tag img kalau file logonya sudah di-upload) -->
     <div class="hero-logo-slot">
       <span class="hero-logo-fallback">🥛</span>
       <!-- <img src="logo-susu.png" alt="Logo Susu Nasional" /> -->
@@ -629,7 +644,7 @@
       <span class="status-pill" id="paymentStatusBadge">⏳ Menunggu Pembayaran</span>
     </div>
 
-    <div id="invoiceDetail" style="background:#f8fafc; padding:14px; border-radius:12px; font-size:0.85rem; line-height:1.6; margin-bottom:16px; border: 1px solid #cbd5e1;"></div>
+    <div id="invoiceDetail" style="background:rgba(248,250,252,0.8); padding:14px; border-radius:12px; font-size:0.85rem; line-height:1.6; margin-bottom:16px; border: 1px solid #cbd5e1;"></div>
 
     <button class="checkout-btn" onclick="sendWhatsApp()" style="margin-bottom:8px;">📲 Konfirmasi Pesanan ke WhatsApp</button>
     <button class="add-cart-btn" style="background:var(--muted);" onclick="finishOrder()">Selesai & Kembali Belanja</button>
