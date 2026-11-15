@@ -10,10 +10,10 @@
       --primary-dark: #023e8a;
       --accent: #00b4d8;
       --bg: #f4f7fa;
-      --surface: #ffffff;
+      --surface: rgba(255, 255, 255, 0.7);
       --text: #1e293b;
       --muted: #64748b;
-      --border: #e2e8f0;
+      --border: rgba(255, 255, 255, 0.9);
       --success: #10b981;
       --warning: #f59e0b;
     }
@@ -21,9 +21,10 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: var(--bg);
+      background: linear-gradient(135deg, #f0f4f8 0%, #e8eff5 100%);
       color: var(--text);
       padding-bottom: 60px;
+      min-height: 100vh;
     }
 
     /* Navbar */
@@ -31,9 +32,11 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
     }
     .nav-container {
       max-width: 1140px;
@@ -52,7 +55,8 @@
       font-weight: 600;
       padding: 6px 12px;
       border-radius: 8px;
-      border: 1px solid var(--border);
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
       transition: 0.2s;
     }
     .back-btn:hover { background: var(--bg); color: var(--text); }
@@ -67,10 +71,11 @@
     .search-bar input {
       width: 100%;
       padding: 9px 14px;
-      border: 1px solid var(--border);
+      border: 1px solid #cbd5e1;
       border-radius: 10px;
       font-size: 0.9rem;
       outline: none;
+      background: #ffffff;
     }
     .search-bar input:focus { border-color: var(--primary); }
 
@@ -97,64 +102,76 @@
       border-radius: 999px;
     }
 
-    /* Banner / Hero dengan slot Logo Nasional di samping teks */
-    .hero-banner {
+    /* Seamless Editorial Hero Section (Tanpa Kotak Biru Pekat) */
+    .hero-section {
       max-width: 1140px;
-      margin: 20px auto;
+      margin: 36px auto 24px;
       padding: 0 20px;
-    }
-    .banner-box {
-      background: linear-gradient(135deg, var(--primary-dark), var(--primary), var(--accent));
-      color: white;
-      border-radius: 20px;
-      padding: 32px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 24px;
       flex-wrap: wrap;
-      gap: 20px;
     }
-    .banner-text {
+    .hero-text-area {
       flex: 1;
-      min-width: 260px;
+      min-width: 280px;
     }
-    .banner-box h1 { font-size: clamp(1.6rem, 3vw, 2.3rem); margin-bottom: 8px; }
-    .banner-box p { opacity: 0.9; max-width: 520px; line-height: 1.5; font-size: 0.95rem; }
+    .hero-text-area h1 {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .hero-text-area p {
+      opacity: 0.85;
+      max-width: 580px;
+      line-height: 1.6;
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-top: 8px;
+    }
     .badge-fresh {
-      background: rgba(255,255,255,0.2);
-      padding: 8px 16px;
+      display: inline-block;
+      background: rgba(0, 119, 182, 0.08);
+      color: var(--primary-dark);
+      padding: 6px 14px;
       border-radius: 999px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
-      backdrop-filter: blur(4px);
+      letter-spacing: 0.02em;
+      border: 1px solid rgba(0, 119, 182, 0.15);
     }
-    
-    /* Area Logo Resmi di Banner */
-    .banner-logo-container {
-      width: 100px;
-      height: 100px;
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 16px;
+
+    /* Slot Logo Resmi di Samping Kanan Teks */
+    .hero-logo-slot {
+      width: 110px;
+      height: 110px;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: 22px;
       display: flex;
       align-items: center;
       justify-content: center;
-      backdrop-filter: blur(6px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 12px 30px rgba(0, 119, 182, 0.08);
       flex-shrink: 0;
     }
-    .banner-logo-container img {
-      max-width: 85%;
-      max-height: 85%;
+    .hero-logo-slot img {
+      max-width: 80%;
+      max-height: 80%;
       object-fit: contain;
     }
-    .banner-logo-fallback {
-      font-size: 2.5rem;
+    .hero-logo-fallback {
+      font-size: 2.8rem;
     }
 
     /* Filter Tabs */
     .filters {
       max-width: 1140px;
-      margin: 20px auto 16px;
+      margin: 10px auto 20px;
       padding: 0 20px;
       display: flex;
       gap: 10px;
@@ -163,8 +180,8 @@
     .filter-btn {
       padding: 8px 18px;
       border-radius: 999px;
-      border: 1px solid var(--border);
-      background: var(--surface);
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
       color: var(--muted);
       font-weight: 600;
       font-size: 0.85rem;
@@ -176,9 +193,10 @@
       background: var(--primary);
       color: white;
       border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(0,119,182,0.2);
     }
 
-    /* Product Grid */
+    /* Product Grid & Liquid Glass Cards */
     .container {
       max-width: 1140px;
       margin: 0 auto;
@@ -187,20 +205,23 @@
     .product-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 20px;
+      gap: 22px;
     }
     .product-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(14px) saturate(180%);
+      -webkit-backdrop-filter: blur(14px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      border-radius: 20px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.05);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
     .product-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 12px 24px rgba(0,0,0,0.06);
+      box-shadow: 0 18px 36px rgba(0, 119, 182, 0.12);
     }
     .product-visual {
       height: 160px;
@@ -211,7 +232,7 @@
       position: relative;
       transition: background 0.3s ease;
     }
-    .product-emoji { font-size: 3.4rem; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.12)); }
+    .product-emoji { font-size: 3.4rem; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1)); }
     .product-tag {
       position: absolute;
       top: 12px;
@@ -246,8 +267,8 @@
       padding: 5px 10px;
       font-size: 0.78rem;
       border-radius: 8px;
-      border: 1px solid var(--border);
-      background: var(--bg);
+      border: 1px solid #cbd5e1;
+      background: rgba(255,255,255,0.8);
       color: var(--text);
       cursor: pointer;
       font-weight: 600;
@@ -277,10 +298,10 @@
     .overlay {
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.5);
+      background: rgba(15, 23, 42, 0.4);
       z-index: 90;
       display: none;
-      backdrop-filter: blur(2px);
+      backdrop-filter: blur(3px);
     }
     .overlay.open { display: block; }
 
@@ -291,7 +312,8 @@
       width: 100%;
       max-width: 400px;
       height: 100vh;
-      background: var(--surface);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(16px);
       z-index: 100;
       display: flex;
       flex-direction: column;
@@ -301,7 +323,7 @@
     .cart-drawer.open { right: 0; }
     .drawer-header {
       padding: 18px 20px;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid #cbd5e1;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -323,7 +345,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 12px 0;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid #cbd5e1;
       gap: 12px;
     }
     .item-info h4 { font-size: 0.92rem; margin-bottom: 2px; }
@@ -338,15 +360,15 @@
       width: 26px;
       height: 26px;
       border-radius: 6px;
-      border: 1px solid var(--border);
-      background: var(--bg);
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
       font-weight: 700;
       cursor: pointer;
     }
     .drawer-footer {
       padding: 18px 20px;
-      border-top: 1px solid var(--border);
-      background: var(--bg);
+      border-top: 1px solid #cbd5e1;
+      background: #f8fafc;
     }
     .total-row {
       display: flex;
@@ -376,13 +398,16 @@
       transform: translate(-50%, -50%);
       width: 92%;
       max-width: 460px;
-      background: var(--surface);
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(16px);
       border-radius: 20px;
       z-index: 110;
       padding: 24px;
       display: none;
       max-height: 90vh;
       overflow-y: auto;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      border: 1px solid rgba(255,255,255,0.9);
     }
     .modal.open { display: block; }
     .form-group { margin-bottom: 14px; }
@@ -390,10 +415,11 @@
     .form-group input, .form-group textarea, .form-group select {
       width: 100%;
       padding: 10px 12px;
-      border: 1px solid var(--border);
+      border: 1px solid #cbd5e1;
       border-radius: 10px;
       font-family: inherit;
       font-size: 0.9rem;
+      background: #ffffff;
     }
 
     /* Payment Box & Upload Area */
@@ -471,7 +497,7 @@
       display: none;
       margin-left: auto;
       margin-right: auto;
-      border: 1px solid var(--border);
+      border: 1px solid #cbd5e1;
     }
 
     .toast {
@@ -494,6 +520,7 @@
 
     @media (max-width: 640px) {
       .search-bar { display: none; }
+      .hero-logo-slot { width: 90px; height: 90px; }
     }
   </style>
 </head>
@@ -514,19 +541,17 @@
     </div>
   </header>
 
-  <!-- Banner Hero dengan Logo di samping kanan teks -->
-  <section class="hero-banner">
-    <div class="banner-box">
-      <div class="banner-text">
-        <span class="badge-fresh">Susu Murni Kepercayaan Keluarga Indonesia • Since 1999</span>
-        <h1 style="margin-top: 12px;">Hadirkan Segarnya Susu Murni Nasional</h1>
-        <p>Pesan langsung produk susu cup, minipack, prepack tawar, hingga yogurt segar. Dikirim dingin langsung dari jalur distribusi resmi.</p>
-      </div>
-      <!-- Slot Logo Resmi (Ganti src="..." jika file logo sudah di-upload) -->
-      <div class="banner-logo-container">
-        <span class="banner-logo-fallback">🥛</span>
-        <!-- <img src="logo-susu.png" alt="Logo Susu Nasional" /> -->
-      </div>
+  <!-- Seamless Editorial Hero Section (Tanpa Kotak Biru) -->
+  <section class="hero-section">
+    <div class="hero-text-area">
+      <span class="badge-fresh">Susu Murni Kepercayaan Keluarga Indonesia • Since 1999</span>
+      <h1 style="margin-top: 10px;">Hadirkan Segarnya Susu Murni Nasional</h1>
+      <p>Pesan langsung produk susu cup, minipack, prepack tawar, hingga yogurt segar. Dikirim dingin langsung dari jalur distribusi resmi.</p>
+    </div>
+    <!-- Slot Logo Resmi (Nanti tinggal aktifkan tag img kalau file logonya sudah di-upload) -->
+    <div class="hero-logo-slot">
+      <span class="hero-logo-fallback">🥛</span>
+      <!-- <img src="logo-susu.png" alt="Logo Susu Nasional" /> -->
     </div>
   </section>
 
@@ -604,7 +629,7 @@
       <span class="status-pill" id="paymentStatusBadge">⏳ Menunggu Pembayaran</span>
     </div>
 
-    <div id="invoiceDetail" style="background:var(--bg); padding:14px; border-radius:12px; font-size:0.85rem; line-height:1.6; margin-bottom:16px;"></div>
+    <div id="invoiceDetail" style="background:#f8fafc; padding:14px; border-radius:12px; font-size:0.85rem; line-height:1.6; margin-bottom:16px; border: 1px solid #cbd5e1;"></div>
 
     <button class="checkout-btn" onclick="sendWhatsApp()" style="margin-bottom:8px;">📲 Konfirmasi Pesanan ke WhatsApp</button>
     <button class="add-cart-btn" style="background:var(--muted);" onclick="finishOrder()">Selesai & Kembali Belanja</button>
