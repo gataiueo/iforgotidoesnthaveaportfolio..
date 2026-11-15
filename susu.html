@@ -15,6 +15,7 @@
       --muted: #64748b;
       --border: #e2e8f0;
       --success: #10b981;
+      --warning: #f59e0b;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -341,7 +342,7 @@
     }
     .checkout-btn:disabled { background: #cbd5e1; cursor: not-allowed; }
 
-    /* Checkout Modal */
+    /* Checkout & Invoice Modal */
     .modal {
       position: fixed;
       top: 50%;
@@ -368,6 +369,85 @@
       font-family: inherit;
       font-size: 0.9rem;
     }
+
+    /* Payment Box & Upload Area */
+    .status-pill {
+      display: inline-block;
+      background: #fef3c7;
+      color: #b45309;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-top: 6px;
+    }
+    .status-pill.ready {
+      background: #d1fae5;
+      color: #065f46;
+    }
+    .pay-card {
+      margin-top: 12px;
+      background: #ffffff;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      text-align: center;
+    }
+    .rek-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 8px 0 4px;
+    }
+    .rek-num {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      letter-spacing: 0.04em;
+    }
+    .copy-btn {
+      background: #e0f2fe;
+      color: var(--primary-dark);
+      border: 1px solid #bae6fd;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .copy-btn:hover { background: #bae6fd; }
+
+    .upload-box {
+      margin-top: 14px;
+      padding: 12px;
+      border: 1.5px dashed #94a3b8;
+      border-radius: 12px;
+      background: #f8fafc;
+      text-align: center;
+    }
+    .upload-label {
+      display: inline-block;
+      padding: 7px 14px;
+      background: var(--primary);
+      color: white;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 6px;
+    }
+    .preview-img {
+      max-width: 100%;
+      max-height: 150px;
+      border-radius: 8px;
+      margin-top: 10px;
+      display: none;
+      margin-left: auto;
+      margin-right: auto;
+      border: 1px solid var(--border);
+    }
+
     .toast {
       position: fixed;
       bottom: 24px;
@@ -484,15 +564,17 @@
     </form>
   </div>
 
-  <!-- Invoice Modal -->
+  <!-- Invoice & Payment Modal -->
   <div class="modal" id="invoiceModal">
-    <div style="text-align:center; margin-bottom:16px;">
-      <div style="font-size:2.5rem;">✅</div>
-      <h3 style="color:var(--success); margin-top:4px;">Pesanan Berhasil Dibuat!</h3>
+    <div style="text-align:center; margin-bottom:14px;">
+      <h3 style="color:var(--primary-dark);">Rincian & Pembayaran</h3>
       <p style="font-size:0.82rem; color:var(--muted);" id="invoiceId"></p>
+      <span class="status-pill" id="paymentStatusBadge">⏳ Menunggu Pembayaran</span>
     </div>
+
     <div id="invoiceDetail" style="background:var(--bg); padding:14px; border-radius:12px; font-size:0.85rem; line-height:1.6; margin-bottom:16px;"></div>
-    <button class="checkout-btn" onclick="sendWhatsApp()" style="margin-bottom:8px;">📲 Konfirmasi via WhatsApp</button>
+
+    <button class="checkout-btn" onclick="sendWhatsApp()" style="margin-bottom:8px;">📲 Konfirmasi Pesanan ke WhatsApp</button>
     <button class="add-cart-btn" style="background:var(--muted);" onclick="finishOrder()">Selesai & Kembali Belanja</button>
   </div>
 
@@ -588,6 +670,7 @@
     let currentFilter = 'all';
     let cart = [];
     let lastOrderText = '';
+    let hasUploadedProof = false;
 
     const formatRp = (num) => 'Rp ' + num.toLocaleString('id-ID');
 
@@ -716,8 +799,34 @@
       document.getElementById('invoiceModal').classList.remove('open');
     }
 
+    function copyRekening() {
+      navigator.clipboard.writeText('7651539358');
+      showToast('Nomor Rekening BCA berhasil disalin!');
+    }
+
+    function handleProofUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const preview = document.getElementById('proofPreview');
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+
+        const statusBadge = document.getElementById('paymentStatusBadge');
+        statusBadge.textContent = '✅ Bukti Terlampir — Siap Konfirmasi';
+        statusBadge.classList.add('ready');
+        hasUploadedProof = true;
+        showToast('Bukti pembayaran berhasil dilampirkan!');
+      };
+      reader.readAsDataURL(file);
+    }
+
     function processOrder(e) {
       e.preventDefault();
+      hasUploadedProof = false;
+
       const name = document.getElementById('custName').value;
       const phone = document.getElementById('custPhone').value;
       const address = document.getElementById('custAddress').value;
@@ -729,25 +838,86 @@
       const itemListHtml = cart.map(i => `• ${i.name} (${i.variant}) x${i.qty} = ${formatRp(i.price * i.qty)}`).join('<br>');
       const itemListWa = cart.map(i => `- ${i.name} (${i.variant}) x${i.qty} = ${formatRp(i.price * i.qty)}`).join('%0A');
 
+      const statusBadge = document.getElementById('paymentStatusBadge');
+      statusBadge.classList.remove('ready');
+
+      let paymentSectionHtml = '';
+      let paymentWaInfo = '';
+
+      if (payment === 'QRIS') {
+        statusBadge.textContent = '⏳ Menunggu Pembayaran QRIS';
+        const qrData = encodeURIComponent(`SUSU-NASIONAL-${orderNum}-RP${total}`);
+        paymentSectionHtml = `
+          <div class="pay-card">
+            <strong style="font-size:0.85rem;">Scan QRIS Dummy di Bawah Ini:</strong><br>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${qrData}" alt="QRIS Dummy" style="width:150px; height:150px; margin:10px auto; display:block; border-radius:8px; border:1px solid #e2e8f0;" />
+            <span style="font-size:0.75rem; color:var(--muted);">NMID: ID1020260081999 • Susu Murni Nasional</span>
+          </div>
+          <div class="upload-box">
+            <p style="font-size:0.78rem; color:var(--muted);">Sudah scan QRIS? Upload screenshot bukti bayar:</p>
+            <label for="proofInput" class="upload-label">📷 Pilih Foto Bukti Bayar</label>
+            <input type="file" id="proofInput" accept="image/*" style="display:none;" onchange="handleProofUpload(event)" />
+            <img id="proofPreview" class="preview-img" alt="Preview Bukti Bayar" />
+          </div>
+        `;
+        paymentWaInfo = '%0APembayaran: QRIS';
+      } else if (payment === 'Transfer BCA') {
+        statusBadge.textContent = '⏳ Menunggu Transfer BCA';
+        paymentSectionHtml = `
+          <div class="pay-card">
+            <span style="font-size:0.78rem; color:var(--muted);">Transfer ke Rekening <strong>Bank BCA</strong></span>
+            <div class="rek-row">
+              <span class="rek-num">7651539358</span>
+              <button type="button" class="copy-btn" onclick="copyRekening()">Salin</button>
+            </div>
+            <span style="font-size:0.78rem; font-weight:600; color:var(--text);">A.n. Gata Abdil Rahman</span>
+          </div>
+          <div class="upload-box">
+            <p style="font-size:0.78rem; color:var(--muted);">Sudah transfer? Upload foto/screenshot bukti transfer:</p>
+            <label for="proofInput" class="upload-label">📷 Pilih Foto Bukti Transfer</label>
+            <input type="file" id="proofInput" accept="image/*" style="display:none;" onchange="handleProofUpload(event)" />
+            <img id="proofPreview" class="preview-img" alt="Preview Bukti Transfer" />
+          </div>
+        `;
+        paymentWaInfo = '%0APembayaran: Transfer BCA (7651539358)';
+      } else {
+        statusBadge.textContent = '🚚 Bayar di Tempat (COD)';
+        statusBadge.classList.add('ready');
+        paymentSectionHtml = `
+          <div class="pay-card">
+            <strong style="font-size:0.85rem; color:var(--success);">Metode Bayar di Tempat (COD)</strong>
+            <p style="font-size:0.78rem; color:var(--muted); margin-top:4px;">Siapkan uang pas sejumlah <strong>${formatRp(total)}</strong> saat kurir tiba di lokasi.</p>
+          </div>
+        `;
+        paymentWaInfo = '%0APembayaran: COD (Bayar di Tempat)';
+      }
+
       document.getElementById('invoiceId').textContent = `Nomor Pesanan: ${orderNum}`;
       document.getElementById('invoiceDetail').innerHTML = `
         <strong>Pemesan:</strong> ${name} (${phone})<br>
         <strong>Alamat:</strong> ${address}<br>
         <strong>Pengiriman:</strong> ${shipping}<br>
-        <strong>Pembayaran:</strong> ${payment}<br><hr style="margin:8px 0; border:0; border-top:1px solid #cbd5e1;">
-        ${itemListHtml}<br><hr style="margin:8px 0; border:0; border-top:1px solid #cbd5e1;">
-        <strong>Total Bayar: ${formatRp(total)}</strong>
+        <hr style="margin:8px 0; border:0; border-top:1px solid #cbd5e1;">
+        ${itemListHtml}
+        <hr style="margin:8px 0; border:0; border-top:1px solid #cbd5e1;">
+        <div style="display:flex; justify-content:space-between; font-size:0.95rem;">
+          <strong>Total Tagihan:</strong>
+          <strong style="color:var(--primary);">${formatRp(total)}</strong>
+        </div>
+        ${paymentSectionHtml}
       `;
 
-      lastOrderText = `Halo Admin Susu Nasional! Saya mau konfirmasi pesanan:%0A%0A*${orderNum}*%0ANama: ${name}%0AAlamat: ${address}%0APengiriman: ${shipping}%0APembayaran: ${payment}%0A%0A*Pesanan:*%0A${itemListWa}%0A%0A*Total: ${formatRp(total)}*`;
+      lastOrderText = `Halo Admin Susu Murni Nasional! Saya mau konfirmasi pesanan:%0A%0A*${orderNum}*%0ANama: ${name}%0AAlamat: ${address}%0APengiriman: ${shipping}${paymentWaInfo}%0A%0A*Detail Pesanan:*%0A${itemListWa}%0A%0A*Total Bayar: ${formatRp(total)}*`;
 
       document.getElementById('checkoutModal').classList.remove('open');
       document.getElementById('invoiceModal').classList.add('open');
     }
 
     function sendWhatsApp() {
-      // Ganti nomor 6281234567890 dengan nomor WA admin kamu
-      window.open(`https://wa.me/6281399970315?text=${lastOrderText}`, '_blank');
+      const proofNote = hasUploadedProof
+        ? '%0A%0A_(Bukti transfer sudah saya siapkan, akan saya kirimkan setelah pesan ini)_'
+        : '';
+      window.open(`https://wa.me/6281399970315?text=${lastOrderText}${proofNote}`, '_blank');
     }
 
     function finishOrder() {
