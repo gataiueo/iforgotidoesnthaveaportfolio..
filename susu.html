@@ -176,7 +176,7 @@
       font-size: 2.8rem;
     }
 
-    /* Animasi Truk & Anak Kecil Gemesin */
+    /* Animasi Truk & Anak Kecil */
     .delivery-animation-banner {
       max-width: 1140px;
       margin: 10px auto 28px;
@@ -198,7 +198,7 @@
     }
     .track-icon {
       font-size: 2rem;
-      z-index: 2;
+      z-index: 2; /* Di belakang truk */
       background: rgba(255, 255, 255, 0.9);
       padding: 8px 12px;
       border-radius: 14px;
@@ -217,8 +217,8 @@
       position: absolute;
       font-size: 1.9rem;
       animation: driveTruck 11s ease-in-out infinite;
-      z-index: 2;
-      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+      z-index: 5; /* Paling depan di atas sapi & customer */
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.12));
     }
     .road-line {
       position: absolute;
@@ -229,15 +229,14 @@
       left: 0;
       z-index: 1;
     }
-    /* Sempurnakan Arah Truk: Tanpa Mundur/Terbalik */
     @keyframes driveTruck {
-      0%   { left: 7%; transform: scaleX(-1) translateY(0); }       /* Start di Sapi, menghadap ke kanan (maju) */
-      45%  { left: 83%; transform: scaleX(-1) translateY(0); }      /* Sampai di Anak Kecil */
-      48%  { left: 83%; transform: scaleX(-1) translateY(-3px); }   /* Sedikit loncat senang */
-      50%  { left: 83%; transform: scaleX(1) translateY(0); }       /* Putar arah menghadap ke kiri */
-      95%  { left: 7%; transform: scaleX(1) translateY(0); }        /* Pulang ke kandang */
-      98%  { left: 7%; transform: scaleX(1) translateY(-3px); }     /* Sampai kandang */
-      100% { left: 7%; transform: scaleX(-1) translateY(0); }       /* Reset siap maju lagi */
+      0%   { left: 7%; transform: scaleX(-1) translateY(0); }
+      45%  { left: 83%; transform: scaleX(-1) translateY(0); }
+      48%  { left: 83%; transform: scaleX(-1) translateY(-3px); }
+      50%  { left: 83%; transform: scaleX(1) translateY(0); }
+      95%  { left: 7%; transform: scaleX(1) translateY(0); }
+      98%  { left: 7%; transform: scaleX(1) translateY(-3px); }
+      100% { left: 7%; transform: scaleX(-1) translateY(0); }
     }
 
     /* Filter Tabs Liquid Glass */
@@ -597,9 +596,27 @@
     }
     .toast.show { opacity: 1; }
 
+    /* Responsive Khusus HP */
     @media (max-width: 640px) {
       .search-bar { display: none; }
-      .hero-logo-slot { width: 90px; height: 90px; }
+      .hero-section {
+        flex-direction: column-reverse; /* Pindahkan logo ke atas teks */
+        align-items: flex-start;
+        gap: 16px;
+      }
+      .hero-logo-slot {
+        width: 84px;
+        height: 84px;
+      }
+      @keyframes driveTruck {
+        0%   { left: 12%; transform: scaleX(-1) translateY(0); }
+        45%  { left: 74%; transform: scaleX(-1) translateY(0); }
+        48%  { left: 74%; transform: scaleX(-1) translateY(-3px); }
+        50%  { left: 74%; transform: scaleX(1) translateY(0); }
+        95%  { left: 12%; transform: scaleX(1) translateY(0); }
+        98%  { left: 12%; transform: scaleX(1) translateY(-3px); }
+        100% { left: 12%; transform: scaleX(-1) translateY(0); }
+      }
     }
   </style>
 </head>
@@ -633,13 +650,13 @@
     </div>
   </section>
 
-  <!-- Animasi Truk & Anak Kecil Gemesin -->
+  <!-- Animasi Truk & Anak Kecil -->
   <div class="delivery-animation-banner">
     <div class="delivery-track">
       <div class="track-icon" title="Peternakan Sapi Perah">🐄</div>
       <div class="road-line"></div>
       <div class="moving-truck" title="Truk Distribusi Susu Nasional">🚚</div>
-      <div class="track-icon customer-icon" title="Anak Kecil Penikmat Susu Segar">🧒🎈</div>
+      <div class="track-icon customer-icon" title="Anak Kecil Penikmat Susu Segar">🧒</div>
     </div>
   </div>
 
