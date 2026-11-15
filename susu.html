@@ -176,7 +176,7 @@
       font-size: 2.8rem;
     }
 
-    /* Animasi Lucu & Hidup: Truk Jalan Halus dari Sapi ke Pelanggan */
+    /* Animasi Truk & Anak Kecil Gemesin */
     .delivery-animation-banner {
       max-width: 1140px;
       margin: 10px auto 28px;
@@ -229,14 +229,15 @@
       left: 0;
       z-index: 1;
     }
+    /* Sempurnakan Arah Truk: Tanpa Mundur/Terbalik */
     @keyframes driveTruck {
-      0%   { left: 7%; transform: scaleX(1) translateY(0); }       /* Start dari Sapi menghadap ke kanan */
-      45%  { left: 83%; transform: scaleX(1) translateY(0); }      /* Sampai di Rumah Pelanggan */
-      48%  { left: 83%; transform: scaleX(1) translateY(-3px); }   /* Sedikit loncat girang pas sampai */
-      50%  { left: 83%; transform: scaleX(-1) translateY(0); }     /* Putar balik menghadap ke kiri */
-      95%  { left: 7%; transform: scaleX(-1) translateY(0); }      /* Pulang ke kandang */
-      98%  { left: 7%; transform: scaleX(-1) translateY(-3px); }   /* Sampai di kandang */
-      100% { left: 7%; transform: scaleX(1) translateY(0); }       /* Reset menghadap kanan */
+      0%   { left: 7%; transform: scaleX(-1) translateY(0); }       /* Start di Sapi, menghadap ke kanan (maju) */
+      45%  { left: 83%; transform: scaleX(-1) translateY(0); }      /* Sampai di Anak Kecil */
+      48%  { left: 83%; transform: scaleX(-1) translateY(-3px); }   /* Sedikit loncat senang */
+      50%  { left: 83%; transform: scaleX(1) translateY(0); }       /* Putar arah menghadap ke kiri */
+      95%  { left: 7%; transform: scaleX(1) translateY(0); }        /* Pulang ke kandang */
+      98%  { left: 7%; transform: scaleX(1) translateY(-3px); }     /* Sampai kandang */
+      100% { left: 7%; transform: scaleX(-1) translateY(0); }       /* Reset siap maju lagi */
     }
 
     /* Filter Tabs Liquid Glass */
@@ -632,13 +633,13 @@
     </div>
   </section>
 
-  <!-- Animasi Lucu & Hidup: Truk Jalan Halus dari Sapi ke Pelanggan -->
+  <!-- Animasi Truk & Anak Kecil Gemesin -->
   <div class="delivery-animation-banner">
     <div class="delivery-track">
       <div class="track-icon" title="Peternakan Sapi Perah">🐄</div>
       <div class="road-line"></div>
       <div class="moving-truck" title="Truk Distribusi Susu Nasional">🚚</div>
-      <div class="track-icon customer-icon" title="Rumah Pelanggan Setia">🏠🛍️</div>
+      <div class="track-icon customer-icon" title="Anak Kecil Penikmat Susu Segar">🧒🎈</div>
     </div>
   </div>
 
