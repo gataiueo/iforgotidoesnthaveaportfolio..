@@ -176,7 +176,7 @@
       font-size: 2.8rem;
     }
 
-    /* Animasi Lucu: Truk Box Berjalan dari Sapi ke Orang */
+    /* Animasi Truk Distribusi Maju Mundur Natural & Lebih Lambat (12s) */
     .delivery-animation-banner {
       max-width: 1140px;
       margin: 10px auto 28px;
@@ -208,7 +208,7 @@
     .moving-truck {
       position: absolute;
       font-size: 1.8rem;
-      animation: driveTruck 8s linear infinite;
+      animation: driveTruck 12s ease-in-out infinite;
       z-index: 2;
     }
     .road-line {
@@ -221,10 +221,10 @@
       z-index: 1;
     }
     @keyframes driveTruck {
-      0% { left: 8%; transform: scaleX(1); }
-      48% { left: 86%; transform: scaleX(1); }
-      52% { left: 86%; transform: scaleX(-1); }
-      100% { left: 8%; transform: scaleX(-1); }
+      0%   { left: 6%; transform: scaleX(1); }    /* Start dari Sapi menghadap ke kanan (maju) */
+      48%  { left: 85%; transform: scaleX(1); }   /* Sampai di Pembeli */
+      52%  { left: 85%; transform: scaleX(-1); }  /* Putar balik menghadap ke kiri */
+      100% { left: 6%; transform: scaleX(-1); }   /* Pulang ke Sapi menghadap ke kiri (maju) */
     }
 
     /* Filter Tabs Liquid Glass */
@@ -620,13 +620,13 @@
     </div>
   </section>
 
-  <!-- Animasi Lucu Truk Box Berjalan dari Sapi ke Orang -->
+  <!-- Animasi Lucu: Truk Box Maju Mundur Natural dari Sapi ke Pelanggan -->
   <div class="delivery-animation-banner">
     <div class="delivery-track">
-      <div class="track-icon" title="Sapi Perah Segar">🐄</div>
+      <div class="track-icon" title="Peternakan Sapi Perah">🐄</div>
       <div class="road-line"></div>
       <div class="moving-truck" title="Truk Distribusi Susu Nasional">🚚</div>
-      <div class="track-icon" title="Pelanggan Setia">🧑‍💻</div>
+      <div class="track-icon" title="Pembeli / Pelanggan">🧑‍💼🛍️</div>
     </div>
   </div>
 
