@@ -20,7 +20,6 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      /* Background Liquid Glass Bias Biru Seger ala Apple */
       background: 
         radial-gradient(circle at 15% 15%, rgba(200, 235, 255, 0.9), transparent 45%),
         radial-gradient(circle at 85% 85%, rgba(175, 215, 255, 0.8), transparent 40%),
@@ -113,7 +112,7 @@
     /* Seamless Editorial Hero Section */
     .hero-section {
       max-width: 1140px;
-      margin: 36px auto 24px;
+      margin: 36px auto 20px;
       padding: 0 20px;
       display: flex;
       justify-content: space-between;
@@ -175,6 +174,57 @@
     }
     .hero-logo-fallback {
       font-size: 2.8rem;
+    }
+
+    /* Animasi Lucu: Truk Box Berjalan dari Sapi ke Orang */
+    .delivery-animation-banner {
+      max-width: 1140px;
+      margin: 10px auto 28px;
+      padding: 0 20px;
+    }
+    .delivery-track {
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      border-radius: 18px;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 119, 182, 0.05);
+    }
+    .track-icon {
+      font-size: 2rem;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 6px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.9);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+    }
+    .moving-truck {
+      position: absolute;
+      font-size: 1.8rem;
+      animation: driveTruck 8s linear infinite;
+      z-index: 2;
+    }
+    .road-line {
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      border-bottom: 2px dashed rgba(0, 119, 182, 0.3);
+      top: 55%;
+      left: 0;
+      z-index: 1;
+    }
+    @keyframes driveTruck {
+      0% { left: 8%; transform: scaleX(1); }
+      48% { left: 86%; transform: scaleX(1); }
+      52% { left: 86%; transform: scaleX(-1); }
+      100% { left: 8%; transform: scaleX(-1); }
     }
 
     /* Filter Tabs Liquid Glass */
@@ -570,6 +620,16 @@
     </div>
   </section>
 
+  <!-- Animasi Lucu Truk Box Berjalan dari Sapi ke Orang -->
+  <div class="delivery-animation-banner">
+    <div class="delivery-track">
+      <div class="track-icon" title="Sapi Perah Segar">🐄</div>
+      <div class="road-line"></div>
+      <div class="moving-truck" title="Truk Distribusi Susu Nasional">🚚</div>
+      <div class="track-icon" title="Pelanggan Setia">🧑‍💻</div>
+    </div>
+  </div>
+
   <div class="filters">
     <button class="filter-btn active" onclick="setFilter('all', this)">Semua Produk</button>
     <button class="filter-btn" onclick="setFilter('cup', this)">Susu Cup</button>
@@ -921,9 +981,9 @@
         const qrData = encodeURIComponent(`SUSU-NASIONAL-${orderNum}-RP${total}`);
         paymentSectionHtml = `
           <div class="pay-card">
-            <strong style="font-size:0.85rem;">Scan QRIS di Bawah Ini:</strong><br>
+            <strong style="font-size:0.85rem;">Scan QRIS Dummy di Bawah Ini:</strong><br>
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${qrData}" alt="QRIS Dummy" style="width:150px; height:150px; margin:10px auto; display:block; border-radius:8px; border:1px solid #e2e8f0;" />
-            <span style="font-size:0.75rem; color:var(--muted);">NMID: ID1020260081999 • CV CITA NASIONAL</span>
+            <span style="font-size:0.75rem; color:var(--muted);">NMID: ID1020260081999 • Susu Murni Nasional</span>
           </div>
           <div class="upload-box">
             <p style="font-size:0.78rem; color:var(--muted);">Sudah scan QRIS? Upload screenshot bukti bayar:</p>
