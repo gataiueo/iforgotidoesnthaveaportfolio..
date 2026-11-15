@@ -624,6 +624,633 @@
     }
     .checkout-btn:disabled { background: #64748b; opacity: 0.5; box-shadow: none; cursor: not-allowed; }
 
+  <!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Susu Murni Nasional — Official Store</title>
+  <style>
+    :root {
+      --primary: #0077b6;
+      --primary-dark: #023e8a;
+      --accent: #00b4d8;
+      --bg-gradient: 
+        radial-gradient(circle at 15% 15%, rgba(200, 235, 255, 0.9), transparent 45%),
+        radial-gradient(circle at 85% 85%, rgba(175, 215, 255, 0.8), transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(225, 245, 255, 0.95), rgba(210, 228, 245, 0.9));
+      --header-bg: rgba(255, 255, 255, 0.75);
+      --glass-card: rgba(255, 255, 255, 0.55);
+      --glass-strong: rgba(255, 255, 255, 0.9);
+      --glass-border: rgba(255, 255, 255, 0.92);
+      --glass-highlight: rgba(255, 255, 255, 0.95);
+      --text: #1e293b;
+      --muted: #64748b;
+      --input-bg: rgba(255, 255, 255, 0.75);
+      --input-border: rgba(203, 213, 225, 0.85);
+      --pill-track-bg: rgba(255, 255, 255, 0.45);
+      --gel-bg: linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(224, 242, 254, 0.72));
+      --gel-border: rgba(255, 255, 255, 1);
+      --gel-shadow: 
+        inset 0 2px 3px rgba(255, 255, 255, 1),
+        inset 0 -2px 4px rgba(0, 119, 182, 0.14),
+        0 6px 16px rgba(0, 119, 182, 0.16);
+      --pill-text-active: #023e8a;
+      --shadow-tint: rgba(0, 119, 182, 0.08);
+      --success: #10b981;
+      --warning: #f59e0b;
+    }
+
+    [data-theme="dark"] {
+      --primary: #38bdf8;
+      --primary-dark: #7dd3fc;
+      --accent: #22d3ee;
+      --bg-gradient: 
+        radial-gradient(circle at 15% 15%, rgba(14, 116, 144, 0.42), transparent 48%),
+        radial-gradient(circle at 85% 80%, rgba(29, 78, 216, 0.38), transparent 45%),
+        radial-gradient(circle at 50% 50%, #071326, #030914);
+      --header-bg: rgba(9, 21, 42, 0.75);
+      --glass-card: rgba(15, 32, 62, 0.55);
+      --glass-strong: rgba(11, 25, 49, 0.94);
+      --glass-border: rgba(125, 211, 252, 0.24);
+      --glass-highlight: rgba(255, 255, 255, 0.16);
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --input-bg: rgba(15, 32, 62, 0.75);
+      --input-border: rgba(125, 211, 252, 0.25);
+      --pill-track-bg: rgba(12, 27, 54, 0.65);
+      --gel-bg: linear-gradient(145deg, rgba(56, 189, 248, 0.36), rgba(14, 116, 144, 0.22));
+      --gel-border: rgba(125, 211, 252, 0.55);
+      --gel-shadow: 
+        inset 0 1px 2px rgba(255, 255, 255, 0.35),
+        inset 0 -2px 5px rgba(2, 132, 199, 0.35),
+        0 6px 18px rgba(0, 0, 0, 0.4);
+      --pill-text-active: #ffffff;
+      --shadow-tint: rgba(0, 0, 0, 0.35);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg-gradient);
+      background-attachment: fixed;
+      color: var(--text);
+      padding-bottom: 60px;
+      min-height: 100vh;
+      transition: color 0.3s ease;
+    }
+
+    /* Navbar Liquid Glass */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--header-bg);
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      border-bottom: 1px solid var(--glass-border);
+      box-shadow: 0 4px 20px var(--shadow-tint);
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+    .nav-container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand-group { display: flex; align-items: center; gap: 12px; }
+    .back-btn {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-card);
+      backdrop-filter: blur(6px);
+      transition: 0.2s;
+    }
+    .back-btn:hover { color: var(--text); border-color: var(--primary); }
+    .logo { font-weight: 800; font-size: 1.15rem; color: var(--primary-dark); letter-spacing: -0.02em; }
+    .logo span { color: var(--accent); }
+
+    .search-bar {
+      flex: 1;
+      max-width: 380px;
+      display: flex;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 9px 14px;
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      font-size: 0.9rem;
+      outline: none;
+      color: var(--text);
+      background: var(--input-bg);
+      backdrop-filter: blur(8px);
+      transition: 0.2s;
+    }
+    .search-bar input::placeholder { color: var(--muted); }
+    .search-bar input:focus { border-color: var(--primary); }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Apple iOS Settings Style Liquid Glass Switch */
+    .ios-switch {
+      position: relative;
+      width: 62px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid var(--glass-border);
+      background: rgba(148, 163, 184, 0.25);
+      backdrop-filter: blur(14px) saturate(180%);
+      -webkit-backdrop-filter: blur(14px) saturate(180%);
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12), 0 4px 12px var(--shadow-tint);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 7px;
+      transition: background 0.35s ease, border-color 0.35s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    [data-theme="dark"] .ios-switch {
+      background: rgba(14, 116, 144, 0.45);
+      border-color: rgba(125, 211, 252, 0.4);
+    }
+    .switch-icon {
+      font-size: 0.78rem;
+      z-index: 1;
+      user-select: none;
+      opacity: 0.75;
+    }
+    .switch-knob {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(241, 245, 249, 0.85));
+      border: 1px solid rgba(255, 255, 255, 1);
+      box-shadow: 
+        inset 0 1px 2px rgba(255, 255, 255, 1),
+        0 3px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.38s cubic-bezier(0.34, 1.45, 0.64, 1), background 0.35s ease;
+      z-index: 2;
+    }
+    [data-theme="dark"] .switch-knob {
+      transform: translateX(28px);
+      background: linear-gradient(145deg, rgba(224, 242, 254, 0.95), rgba(125, 211, 252, 0.85));
+    }
+
+    .cart-trigger {
+      position: relative;
+      background: #0077b6;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(0,119,182,0.3);
+      transition: 0.2s;
+    }
+    .cart-trigger:hover { background: #023e8a; }
+    .cart-badge {
+      background: #ef4444;
+      color: white;
+      font-size: 0.75rem;
+      padding: 2px 7px;
+      border-radius: 999px;
+    }
+
+    /* Seamless Editorial Hero Section */
+    .hero-section {
+      max-width: 1140px;
+      margin: 36px auto 20px;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .hero-text-area {
+      flex: 1;
+      min-width: 280px;
+    }
+    .hero-text-area h1 {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .hero-text-area p {
+      opacity: 0.9;
+      max-width: 580px;
+      line-height: 1.6;
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+    .badge-fresh {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.14);
+      color: var(--primary-dark);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(6px);
+    }
+
+    /* Slot Logo Resmi Liquid Glass */
+    .hero-logo-slot {
+      width: 110px;
+      height: 110px;
+      background: var(--glass-card);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 1px 0 var(--glass-highlight), 0 12px 30px var(--shadow-tint);
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .hero-logo-slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Animasi Truk & Anak Kecil */
+    .delivery-animation-banner {
+      max-width: 1140px;
+      margin: 10px auto 24px;
+      padding: 0 20px;
+    }
+    .delivery-track {
+      background: var(--glass-card);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 1px 0 var(--glass-highlight), 0 10px 30px var(--shadow-tint);
+    }
+    .track-icon {
+      font-size: 2rem;
+      z-index: 2;
+      background: var(--glass-strong);
+      padding: 8px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      animation: bounceIcon 2s ease-in-out infinite;
+    }
+    .customer-icon {
+      animation-delay: 1s;
+    }
+    @keyframes bounceIcon {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+    .moving-truck {
+      position: absolute;
+      font-size: 1.9rem;
+      animation: driveTruck 11s ease-in-out infinite;
+      z-index: 5;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.18));
+    }
+    .road-line {
+      position: absolute;
+      width: 100%;
+      height: 3px;
+      border-bottom: 3px dashed rgba(56, 189, 248, 0.35);
+      top: 58%;
+      left: 0;
+      z-index: 1;
+    }
+    @keyframes driveTruck {
+      0%   { left: 7%; transform: scaleX(-1) translateY(0); }
+      45%  { left: 83%; transform: scaleX(-1) translateY(0); }
+      48%  { left: 83%; transform: scaleX(-1) translateY(-3px); }
+      50%  { left: 83%; transform: scaleX(1) translateY(0); }
+      95%  { left: 7%; transform: scaleX(1) translateY(0); }
+      98%  { left: 7%; transform: scaleX(1) translateY(-3px); }
+      100% { left: 7%; transform: scaleX(-1) translateY(0); }
+    }
+
+    /* iOS Liquid Glass Gel Segmented Tab Control */
+    .filters-wrapper {
+      max-width: 1140px;
+      margin: 8px auto 24px;
+      padding: 0 20px;
+    }
+    .ios-segmented-control {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      padding: 6px;
+      border-radius: 999px;
+      background: var(--pill-track-bg);
+      backdrop-filter: blur(22px) saturate(200%);
+      -webkit-backdrop-filter: blur(22px) saturate(200%);
+      border: 1px solid var(--glass-border);
+      box-shadow:
+        inset 0 1px 2px var(--glass-highlight),
+        0 8px 24px var(--shadow-tint);
+      max-width: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .ios-segmented-control::-webkit-scrollbar { display: none; }
+
+    .liquid-pill-indicator {
+      position: absolute;
+      top: 6px;
+      bottom: 6px;
+      left: 0;
+      border-radius: 999px;
+      background: var(--gel-bg);
+      backdrop-filter: blur(14px) saturate(220%);
+      -webkit-backdrop-filter: blur(14px) saturate(220%);
+      border: 1px solid var(--gel-border);
+      box-shadow: var(--gel-shadow);
+      transition: 
+        transform 0.45s cubic-bezier(0.34, 1.45, 0.64, 1),
+        width 0.42s cubic-bezier(0.34, 1.35, 0.64, 1);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .liquid-pill-indicator::after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 12%;
+      right: 12%;
+      height: 38%;
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0));
+      pointer-events: none;
+    }
+
+    .filter-btn {
+      position: relative;
+      z-index: 2;
+      padding: 9px 20px;
+      border-radius: 999px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 0.86rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 0.25s ease, transform 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .filter-btn:hover { color: var(--text); }
+    .filter-btn:active { transform: scale(0.95); }
+    .filter-btn.active {
+      color: var(--pill-text-active);
+      font-weight: 700;
+    }
+
+    /* Product Grid & Liquid Glass Cards */
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 22px;
+    }
+    .product-card {
+      background: var(--glass-card);
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      border: 1px solid var(--glass-border);
+      border-radius: 22px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: inset 0 1px 0 var(--glass-highlight), 0 16px 32px var(--shadow-tint);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: inset 0 1px 0 var(--glass-highlight), 0 22px 40px rgba(0, 119, 182, 0.18);
+    }
+    .product-visual {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.4);
+    }
+    .product-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .product-card:hover .product-img {
+      transform: scale(1.05);
+    }
+    .product-tag {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(6px);
+      color: #023e8a;
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 8px;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+    .product-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .product-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; color: var(--text); }
+    .product-desc { font-size: 0.82rem; color: var(--muted); margin-bottom: 12px; line-height: 1.4; }
+    .product-price { font-size: 1.2rem; font-weight: 800; color: var(--primary); margin-bottom: 12px; }
+
+    /* Variant Pills */
+    .variant-label { font-size: 0.75rem; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
+    .variant-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .variant-btn {
+      padding: 5px 10px;
+      font-size: 0.78rem;
+      border-radius: 8px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-card);
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.15s;
+    }
+    .variant-btn.selected {
+      background: rgba(56, 189, 248, 0.22);
+      border-color: var(--primary);
+      color: var(--primary-dark);
+    }
+
+    .add-cart-btn {
+      margin-top: auto;
+      width: 100%;
+      padding: 11px;
+      background: #0077b6;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,119,182,0.25);
+      transition: 0.2s;
+    }
+    .add-cart-btn:hover { background: #023e8a; }
+
+    /* Drawer / Modal Liquid Glass */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 12, 26, 0.52);
+      z-index: 90;
+      display: none;
+      backdrop-filter: blur(5px);
+    }
+    .overlay.open { display: block; }
+
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: -420px;
+      width: 100%;
+      max-width: 400px;
+      height: 100vh;
+      background: var(--glass-strong);
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      color: var(--text);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      transition: right 0.3s ease;
+      box-shadow: -12px 0 30px rgba(0,0,0,0.2);
+      border-left: 1px solid var(--glass-border);
+    }
+    .cart-drawer.open { right: 0; }
+    .drawer-header {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--muted);
+    }
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 20px;
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--glass-border);
+      gap: 12px;
+    }
+    .item-info h4 { font-size: 0.92rem; margin-bottom: 2px; }
+    .item-info span { font-size: 0.78rem; color: var(--muted); display: block; }
+    .item-info strong { font-size: 0.88rem; color: var(--primary); }
+    .qty-control {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .qty-btn {
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-card);
+      color: var(--text);
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .drawer-footer {
+      padding: 18px 20px;
+      border-top: 1px solid var(--glass-border);
+      background: var(--glass-card);
+    }
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+    .checkout-btn {
+      width: 100%;
+      padding: 13px;
+      background: var(--success);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+    }
+    .checkout-btn:disabled { background: #64748b; opacity: 0.5; box-shadow: none; cursor: not-allowed; }
+
     /* Checkout & Invoice Modal */
     .modal {
       position: fixed;
@@ -790,7 +1417,7 @@
         48%  { left: 74%; transform: scaleX(-1) translateY(-3px); }
         50%  { left: 74%; transform: scaleX(1) translateY(0); }
         95%  { left: 12%; transform: scaleX(1) translateY(0); }
-        98%  { left: 12%; transform: scaleX(1) translateY(-3px); }
+        98%  { left: 12%; transform: scaleX(-1) translateY(-3px); }
         100% { left: 12%; transform: scaleX(-1) translateY(0); }
       }
     }
@@ -808,7 +1435,6 @@
         <input type="text" id="searchInput" placeholder="Cari susu cup, yogurt, prepack..." oninput="renderProducts()" />
       </div>
       <div class="nav-actions">
-        <!-- Apple iOS Settings Style Switch -->
         <button class="ios-switch" id="themeToggle" onclick="toggleTheme()" title="Mode Gelap / Terang" aria-label="Ganti Tema">
           <span class="switch-icon">☀️</span>
           <span class="switch-icon">🌙</span>
@@ -830,8 +1456,7 @@
       <p>Pesan langsung produk susu cup, minipack, prepack tawar, hingga yogurt segar. Dikirim dingin langsung dari jalur distribusi resmi.</p>
     </div>
     <div class="hero-logo-slot">
-      <span class="hero-logo-fallback">🥛</span>
-      <!-- <img src="logo-susu.png" alt="Logo Susu Nasional" /> -->
+      <img src="ini-logo.JPG" alt="Logo Susu Nasional" />
     </div>
   </section>
 
@@ -940,14 +1565,13 @@
         name: 'Susu Murni Cup (130ml)',
         desc: 'Susu sapi segar kemasan cup legendaris praktis siap minum, tersedia variant rasa.',
         price: 4000,
-        emoji: '🥤',
         variants: [
-          { name: 'Cokelat', bg: 'linear-gradient(135deg, #d7ccc8, #a1887f)' },
-          { name: 'Stroberi', bg: 'linear-gradient(135deg, #ffcdd2, #f48fb1)' },
-          { name: 'Moka', bg: 'linear-gradient(135deg, #e0c3fc, #8ec5fc)' },
-          { name: 'Jeruk', bg: 'linear-gradient(135deg, #ffe0b2, #ffb74d)' },
-          { name: 'Vanilla', bg: 'linear-gradient(135deg, #fff9c4, #fff176)' },
-          { name: 'Biskuit', bg: 'linear-gradient(135deg, #f5ebe0, #d5bdaf)' }
+          { name: 'Cokelat', img: 'susu-cup-cokelat.JPG' },
+          { name: 'Stroberi', img: 'susu-cup-stroberi.JPG' },
+          { name: 'Moka', img: 'susu-cup-moka.JPG' },
+          { name: 'Jeruk', img: 'susu-cup-jeruk.JPG' },
+          { name: 'Vanilla', img: 'susu-cup-vanilla.JPG' },
+          { name: 'Biskuit', img: 'susu-cup-biskuit.JPG' }
         ]
       },
       {
@@ -957,9 +1581,8 @@
         name: 'Susu Prepack Tawar 400ml',
         desc: 'Susu sapi murni 100% tanpa pemanis, cocok untuk konsumsi harian atau berbagai olahan.',
         price: 7000,
-        emoji: '🥛',
         variants: [
-          { name: 'Plain Original (400ml)', bg: 'linear-gradient(135deg, #e0f2fe, #bae6fd)' }
+          { name: 'Plain Original (400ml)', img: 'prepack.JPG' }
         ]
       },
       {
@@ -969,10 +1592,9 @@
         name: 'Susu Minipack (125ml)',
         desc: 'Kemasan bantal praktis untuk bekal sekolah dan perjalanan.',
         price: 3000,
-        emoji: '🧃',
         variants: [
-          { name: 'Cokelat', bg: 'linear-gradient(135deg, #d7ccc8, #8d6e63)' },
-          { name: 'Stroberi', bg: 'linear-gradient(135deg, #f8bbd0, #f06292)' }
+          { name: 'Cokelat', img: 'minipack.JPG' },
+          { name: 'Stroberi', img: 'minipack.JPG' }
         ]
       },
       {
@@ -982,9 +1604,8 @@
         name: 'Susu Putih Manis',
         desc: 'Susu sapi segar kemasan bantal dengan rasa manis pas yang disukai semua usia.',
         price: 4000,
-        emoji: '🍼',
         variants: [
-          { name: 'Putih Manis', bg: 'linear-gradient(135deg, #f1f5f9, #cbd5e1)' }
+          { name: 'Putih Manis', img: 'putih-manis.JPG' }
         ]
       },
       {
@@ -994,11 +1615,10 @@
         name: 'Yogurt Cup',
         desc: 'Yogurt kental menyegarkan kaya probiotik dengan sari buah asli.',
         price: 5000,
-        emoji: '🍨',
         variants: [
-          { name: 'Anggur', bg: 'linear-gradient(135deg, #e1bee7, #ba68c8)' },
-          { name: 'Stroberi', bg: 'linear-gradient(135deg, #ffcdd2, #f48fb1)' },
-          { name: 'Mangga', bg: 'linear-gradient(135deg, #fff59d, #ffd54f)' }
+          { name: 'Anggur', img: 'yogurt-cup-anggur.JPG' },
+          { name: 'Stroberi', img: 'yogurt-cup-stroberi.JPG' },
+          { name: 'Mangga', img: 'yogurt-cup-mangga.JPG' }
         ]
       },
       {
@@ -1008,10 +1628,9 @@
         name: 'Yogurt Botol (250ml)',
         desc: 'Minuman yogurt segar kemasan botol ergonomis.',
         price: 8000,
-        emoji: '🍶',
         variants: [
-          { name: 'Plain', bg: 'linear-gradient(135deg, #f8fafc, #e2e8f0)' },
-          { name: 'Stroberi', bg: 'linear-gradient(135deg, #ffcdd2, #e57373)' }
+          { name: 'Plain', img: 'yogurt-botol.JPG' },
+          { name: 'Stroberi', img: 'yogurt-botol.JPG' }
         ]
       }
     ];
@@ -1090,9 +1709,9 @@
         const activeVar = p.variants[activeIdx];
         return `
           <div class="product-card">
-            <div class="product-visual" style="background: ${activeVar.bg}">
+            <div class="product-visual">
               <span class="product-tag">${p.tag}</span>
-              <span class="product-emoji">${p.emoji}</span>
+              <img src="${activeVar.img}" alt="${p.name}" class="product-img" />
             </div>
             <div class="product-body">
               <h3 class="product-title">${p.name}</h3>
@@ -1321,7 +1940,6 @@
       setTimeout(() => t.classList.remove('show'), 2200);
     }
 
-    /* Langsung jalankan tanpa nunggu DOMContentLoaded yang kadang kelewat */
     renderProducts();
     updateCartUI();
     requestAnimationFrame(() => {
