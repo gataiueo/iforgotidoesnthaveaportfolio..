@@ -9,25 +9,59 @@
       --primary: #0077b6;
       --primary-dark: #023e8a;
       --accent: #00b4d8;
-      --surface: rgba(255, 255, 255, 0.65);
+      --bg-gradient: 
+        radial-gradient(circle at 15% 15%, rgba(200, 235, 255, 0.9), transparent 45%),
+        radial-gradient(circle at 85% 85%, rgba(175, 215, 255, 0.8), transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(225, 245, 255, 0.95), rgba(210, 228, 245, 0.9));
+      --header-bg: rgba(255, 255, 255, 0.75);
+      --glass-card: rgba(255, 255, 255, 0.55);
+      --glass-strong: rgba(255, 255, 255, 0.88);
+      --glass-border: rgba(255, 255, 255, 0.9);
+      --glass-highlight: rgba(255, 255, 255, 0.85);
       --text: #1e293b;
       --muted: #64748b;
-      --border: rgba(255, 255, 255, 0.85);
+      --input-bg: rgba(255, 255, 255, 0.75);
+      --input-border: rgba(203, 213, 225, 0.85);
+      --pill-track-bg: rgba(255, 255, 255, 0.48);
+      --pill-indicator-bg: rgba(255, 255, 255, 0.92);
+      --pill-text-active: #023e8a;
+      --shadow-tint: rgba(0, 119, 182, 0.08);
       --success: #10b981;
       --warning: #f59e0b;
+    }
+
+    [data-theme="dark"] {
+      --primary: #38bdf8;
+      --primary-dark: #7dd3fc;
+      --accent: #22d3ee;
+      --bg-gradient: 
+        radial-gradient(circle at 15% 15%, rgba(14, 116, 144, 0.38), transparent 48%),
+        radial-gradient(circle at 85% 80%, rgba(29, 78, 216, 0.35), transparent 45%),
+        radial-gradient(circle at 50% 50%, #071326, #030914);
+      --header-bg: rgba(9, 21, 42, 0.75);
+      --glass-card: rgba(15, 32, 62, 0.52);
+      --glass-strong: rgba(11, 25, 49, 0.92);
+      --glass-border: rgba(125, 211, 252, 0.22);
+      --glass-highlight: rgba(255, 255, 255, 0.14);
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --input-bg: rgba(15, 32, 62, 0.75);
+      --input-border: rgba(125, 211, 252, 0.25);
+      --pill-track-bg: rgba(12, 27, 54, 0.62);
+      --pill-indicator-bg: rgba(56, 189, 248, 0.22);
+      --pill-text-active: #e0f2fe;
+      --shadow-tint: rgba(0, 0, 0, 0.35);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: 
-        radial-gradient(circle at 15% 15%, rgba(200, 235, 255, 0.9), transparent 45%),
-        radial-gradient(circle at 85% 85%, rgba(175, 215, 255, 0.8), transparent 40%),
-        radial-gradient(circle at 50% 50%, rgba(225, 245, 255, 0.95), rgba(210, 228, 245, 0.9));
+      background: var(--bg-gradient);
       background-attachment: fixed;
       color: var(--text);
       padding-bottom: 60px;
       min-height: 100vh;
+      transition: color 0.3s ease;
     }
 
     /* Navbar Liquid Glass */
@@ -35,11 +69,12 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(255, 255, 255, 0.75);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.8);
-      box-shadow: 0 4px 20px rgba(0, 119, 182, 0.06);
+      background: var(--header-bg);
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      border-bottom: 1px solid var(--glass-border);
+      box-shadow: 0 4px 20px var(--shadow-tint);
+      transition: background 0.3s ease, border-color 0.3s ease;
     }
     .nav-container {
       max-width: 1140px;
@@ -48,7 +83,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      gap: 12px;
     }
     .brand-group { display: flex; align-items: center; gap: 12px; }
     .back-btn {
@@ -57,39 +92,68 @@
       font-size: 0.85rem;
       font-weight: 600;
       padding: 6px 12px;
-      border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.9);
-      background: rgba(255,255,255,0.5);
+      border-radius: 10px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-card);
       backdrop-filter: blur(6px);
       transition: 0.2s;
     }
-    .back-btn:hover { background: #fff; color: var(--text); }
+    .back-btn:hover { color: var(--text); border-color: var(--primary); }
     .logo { font-weight: 800; font-size: 1.15rem; color: var(--primary-dark); letter-spacing: -0.02em; }
     .logo span { color: var(--accent); }
 
     .search-bar {
       flex: 1;
-      max-width: 420px;
+      max-width: 380px;
       display: flex;
     }
     .search-bar input {
       width: 100%;
       padding: 9px 14px;
-      border: 1px solid rgba(255,255,255,0.9);
+      border: 1px solid var(--glass-border);
       border-radius: 12px;
       font-size: 0.9rem;
       outline: none;
-      background: rgba(255,255,255,0.6);
+      color: var(--text);
+      background: var(--input-bg);
       backdrop-filter: blur(8px);
       transition: 0.2s;
     }
-    .search-bar input:focus { border-color: var(--primary); background: rgba(255,255,255,0.95); }
+    .search-bar input::placeholder { color: var(--muted); }
+    .search-bar input:focus { border-color: var(--primary); }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Dark Mode Switch Button */
+    .theme-toggle {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-card);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--text);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 1px 0 var(--glass-highlight), 0 4px 12px var(--shadow-tint);
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+    .theme-toggle:hover { transform: scale(1.05); }
+    .theme-toggle:active { transform: scale(0.95); }
 
     .cart-trigger {
       position: relative;
-      background: var(--primary);
+      background: #0077b6;
       color: white;
-      border: none;
+      border: 1px solid rgba(255,255,255,0.25);
       padding: 10px 16px;
       border-radius: 12px;
       font-weight: 700;
@@ -97,10 +161,10 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      box-shadow: 0 4px 12px rgba(0,119,182,0.2);
+      box-shadow: 0 4px 14px rgba(0,119,182,0.3);
       transition: 0.2s;
     }
-    .cart-trigger:hover { background: var(--primary-dark); }
+    .cart-trigger:hover { background: #023e8a; }
     .cart-badge {
       background: #ef4444;
       color: white;
@@ -132,7 +196,7 @@
       line-height: 1.2;
     }
     .hero-text-area p {
-      opacity: 0.85;
+      opacity: 0.9;
       max-width: 580px;
       line-height: 1.6;
       font-size: 0.95rem;
@@ -141,14 +205,14 @@
     }
     .badge-fresh {
       display: inline-block;
-      background: rgba(0, 119, 182, 0.1);
+      background: rgba(56, 189, 248, 0.14);
       color: var(--primary-dark);
       padding: 6px 14px;
       border-radius: 999px;
       font-size: 0.78rem;
       font-weight: 700;
       letter-spacing: 0.02em;
-      border: 1px solid rgba(0, 119, 182, 0.2);
+      border: 1px solid var(--glass-border);
       backdrop-filter: blur(6px);
     }
 
@@ -156,15 +220,15 @@
     .hero-logo-slot {
       width: 110px;
       height: 110px;
-      background: rgba(255, 255, 255, 0.6);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 255, 255, 0.9);
+      background: var(--glass-card);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border: 1px solid var(--glass-border);
       border-radius: 24px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 12px 30px rgba(0, 119, 182, 0.1);
+      box-shadow: inset 0 1px 0 var(--glass-highlight), 0 12px 30px var(--shadow-tint);
       flex-shrink: 0;
     }
     .hero-logo-slot img {
@@ -179,14 +243,14 @@
     /* Animasi Truk & Anak Kecil */
     .delivery-animation-banner {
       max-width: 1140px;
-      margin: 10px auto 28px;
+      margin: 10px auto 24px;
       padding: 0 20px;
     }
     .delivery-track {
-      background: rgba(255, 255, 255, 0.55);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 255, 255, 0.9);
+      background: var(--glass-card);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border: 1px solid var(--glass-border);
       border-radius: 20px;
       padding: 16px 24px;
       display: flex;
@@ -194,16 +258,16 @@
       justify-content: space-between;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 119, 182, 0.06);
+      box-shadow: inset 0 1px 0 var(--glass-highlight), 0 10px 30px var(--shadow-tint);
     }
     .track-icon {
       font-size: 2rem;
-      z-index: 2; /* Di belakang truk */
-      background: rgba(255, 255, 255, 0.9);
+      z-index: 2;
+      background: var(--glass-strong);
       padding: 8px 12px;
       border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.95);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
       animation: bounceIcon 2s ease-in-out infinite;
     }
     .customer-icon {
@@ -217,14 +281,14 @@
       position: absolute;
       font-size: 1.9rem;
       animation: driveTruck 11s ease-in-out infinite;
-      z-index: 5; /* Paling depan di atas sapi & customer */
-      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.12));
+      z-index: 5;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.18));
     }
     .road-line {
       position: absolute;
       width: 100%;
       height: 3px;
-      border-bottom: 3px dashed rgba(0, 119, 182, 0.35);
+      border-bottom: 3px dashed rgba(56, 189, 248, 0.35);
       top: 58%;
       left: 0;
       z-index: 1;
@@ -239,33 +303,69 @@
       100% { left: 7%; transform: scaleX(-1) translateY(0); }
     }
 
-    /* Filter Tabs Liquid Glass */
-    .filters {
+    /* iOS Liquid Glass Segmented Tab Control */
+    .filters-wrapper {
       max-width: 1140px;
-      margin: 10px auto 20px;
+      margin: 8px auto 24px;
       padding: 0 20px;
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
     }
+    .ios-segmented-control {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      padding: 5px;
+      border-radius: 999px;
+      background: var(--pill-track-bg);
+      backdrop-filter: blur(22px) saturate(200%);
+      -webkit-backdrop-filter: blur(22px) saturate(200%);
+      border: 1px solid var(--glass-border);
+      box-shadow:
+        inset 0 1px 1px var(--glass-highlight),
+        0 8px 24px var(--shadow-tint);
+      max-width: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .ios-segmented-control::-webkit-scrollbar { display: none; }
+
+    .liquid-pill-indicator {
+      position: absolute;
+      top: 5px;
+      bottom: 5px;
+      left: 5px;
+      border-radius: 999px;
+      background: var(--pill-indicator-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      box-shadow:
+        inset 0 1px 1px var(--glass-highlight),
+        0 4px 14px rgba(0, 119, 182, 0.16);
+      transition: transform 0.38s cubic-bezier(0.32, 1.15, 0.45, 1), width 0.38s cubic-bezier(0.32, 1.15, 0.45, 1);
+      z-index: 1;
+      pointer-events: none;
+    }
+
     .filter-btn {
+      position: relative;
+      z-index: 2;
       padding: 8px 18px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.8);
-      background: rgba(255,255,255,0.5);
-      backdrop-filter: blur(8px);
+      border: none;
+      background: transparent;
       color: var(--muted);
       font-weight: 600;
       font-size: 0.85rem;
       cursor: pointer;
       white-space: nowrap;
-      transition: 0.2s;
+      transition: color 0.25s ease, transform 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
     }
+    .filter-btn:hover { color: var(--text); }
+    .filter-btn:active { transform: scale(0.96); }
     .filter-btn.active {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-      box-shadow: 0 4px 12px rgba(0,119,182,0.25);
+      color: var(--pill-text-active);
+      font-weight: 700;
     }
 
     /* Product Grid & Liquid Glass Cards */
@@ -280,20 +380,20 @@
       gap: 22px;
     }
     .product-card {
-      background: rgba(255, 255, 255, 0.55);
-      backdrop-filter: blur(16px) saturate(180%);
-      -webkit-backdrop-filter: blur(16px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.9);
+      background: var(--glass-card);
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      border: 1px solid var(--glass-border);
       border-radius: 22px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 16px 32px rgba(0, 119, 182, 0.08);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: inset 0 1px 0 var(--glass-highlight), 0 16px 32px var(--shadow-tint);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.3s ease;
     }
     .product-card:hover {
       transform: translateY(-5px);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,1), 0 22px 40px rgba(0, 119, 182, 0.15);
+      box-shadow: inset 0 1px 0 var(--glass-highlight), 0 22px 40px rgba(0, 119, 182, 0.18);
     }
     .product-visual {
       height: 160px;
@@ -304,14 +404,14 @@
       position: relative;
       transition: background 0.3s ease;
     }
-    .product-emoji { font-size: 3.4rem; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.12)); }
+    .product-emoji { font-size: 3.4rem; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.14)); }
     .product-tag {
       position: absolute;
       top: 12px;
       left: 12px;
-      background: rgba(255,255,255,0.85);
+      background: rgba(255,255,255,0.88);
       backdrop-filter: blur(6px);
-      color: var(--primary-dark);
+      color: #023e8a;
       font-size: 0.7rem;
       font-weight: 800;
       padding: 4px 10px;
@@ -324,7 +424,7 @@
       flex-direction: column;
       flex: 1;
     }
-    .product-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
+    .product-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; color: var(--text); }
     .product-desc { font-size: 0.82rem; color: var(--muted); margin-bottom: 12px; line-height: 1.4; }
     .product-price { font-size: 1.2rem; font-weight: 800; color: var(--primary); margin-bottom: 12px; }
 
@@ -340,15 +440,15 @@
       padding: 5px 10px;
       font-size: 0.78rem;
       border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.9);
-      background: rgba(255,255,255,0.5);
+      border: 1px solid var(--glass-border);
+      background: var(--glass-card);
       color: var(--text);
       cursor: pointer;
       font-weight: 600;
       transition: 0.15s;
     }
     .variant-btn.selected {
-      background: #e0f2fe;
+      background: rgba(56, 189, 248, 0.22);
       border-color: var(--primary);
       color: var(--primary-dark);
     }
@@ -357,25 +457,25 @@
       margin-top: auto;
       width: 100%;
       padding: 11px;
-      background: var(--primary);
+      background: #0077b6;
       color: white;
-      border: none;
+      border: 1px solid rgba(255,255,255,0.2);
       border-radius: 12px;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,119,182,0.2);
+      box-shadow: 0 4px 12px rgba(0,119,182,0.25);
       transition: 0.2s;
     }
-    .add-cart-btn:hover { background: var(--primary-dark); }
+    .add-cart-btn:hover { background: #023e8a; }
 
     /* Drawer / Modal Liquid Glass */
     .overlay {
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.4);
+      background: rgba(5, 12, 26, 0.52);
       z-index: 90;
       display: none;
-      backdrop-filter: blur(4px);
+      backdrop-filter: blur(5px);
     }
     .overlay.open { display: block; }
 
@@ -386,20 +486,21 @@
       width: 100%;
       max-width: 400px;
       height: 100vh;
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      background: var(--glass-strong);
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      color: var(--text);
       z-index: 100;
       display: flex;
       flex-direction: column;
       transition: right 0.3s ease;
-      box-shadow: -12px 0 30px rgba(0,0,0,0.1);
-      border-left: 1px solid rgba(255,255,255,0.9);
+      box-shadow: -12px 0 30px rgba(0,0,0,0.2);
+      border-left: 1px solid var(--glass-border);
     }
     .cart-drawer.open { right: 0; }
     .drawer-header {
       padding: 18px 20px;
-      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+      border-bottom: 1px solid var(--glass-border);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -421,7 +522,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 12px 0;
-      border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+      border-bottom: 1px solid var(--glass-border);
       gap: 12px;
     }
     .item-info h4 { font-size: 0.92rem; margin-bottom: 2px; }
@@ -436,15 +537,16 @@
       width: 26px;
       height: 26px;
       border-radius: 6px;
-      border: 1px solid rgba(255,255,255,0.9);
-      background: rgba(255,255,255,0.7);
+      border: 1px solid var(--glass-border);
+      background: var(--glass-card);
+      color: var(--text);
       font-weight: 700;
       cursor: pointer;
     }
     .drawer-footer {
       padding: 18px 20px;
-      border-top: 1px solid rgba(226, 232, 240, 0.8);
-      background: rgba(244, 247, 250, 0.5);
+      border-top: 1px solid var(--glass-border);
+      background: var(--glass-card);
     }
     .total-row {
       display: flex;
@@ -463,9 +565,9 @@
       font-weight: 700;
       font-size: 0.95rem;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
     }
-    .checkout-btn:disabled { background: #cbd5e1; box-shadow: none; cursor: not-allowed; }
+    .checkout-btn:disabled { background: #64748b; opacity: 0.5; box-shadow: none; cursor: not-allowed; }
 
     /* Checkout & Invoice Modal */
     .modal {
@@ -475,17 +577,18 @@
       transform: translate(-50%, -50%);
       width: 92%;
       max-width: 460px;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      background: var(--glass-strong);
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      color: var(--text);
       border-radius: 24px;
       z-index: 110;
       padding: 24px;
       display: none;
       max-height: 90vh;
       overflow-y: auto;
-      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--glass-border);
     }
     .modal.open { display: block; }
     .form-group { margin-bottom: 14px; }
@@ -493,11 +596,12 @@
     .form-group input, .form-group textarea, .form-group select {
       width: 100%;
       padding: 10px 12px;
-      border: 1px solid rgba(203, 213, 225, 0.8);
+      border: 1px solid var(--input-border);
       border-radius: 10px;
       font-family: inherit;
       font-size: 0.9rem;
-      background: rgba(255, 255, 255, 0.8);
+      color: var(--text);
+      background: var(--input-bg);
     }
 
     /* Payment Box & Upload Area */
@@ -515,12 +619,21 @@
       background: #d1fae5;
       color: #065f46;
     }
+    .invoice-box {
+      background: var(--glass-card);
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      margin-bottom: 16px;
+      border: 1px solid var(--glass-border);
+    }
     .pay-card {
       margin-top: 12px;
-      background: rgba(255, 255, 255, 0.8);
+      background: var(--glass-card);
       padding: 14px;
       border-radius: 14px;
-      border: 1px solid rgba(203, 213, 225, 0.8);
+      border: 1px solid var(--glass-border);
       text-align: center;
     }
     .rek-row {
@@ -537,29 +650,28 @@
       letter-spacing: 0.04em;
     }
     .copy-btn {
-      background: #e0f2fe;
+      background: rgba(56, 189, 248, 0.2);
       color: var(--primary-dark);
-      border: 1px solid #bae6fd;
+      border: 1px solid var(--primary);
       padding: 4px 10px;
       border-radius: 6px;
       font-size: 0.75rem;
       font-weight: 700;
       cursor: pointer;
     }
-    .copy-btn:hover { background: #bae6fd; }
 
     .upload-box {
       margin-top: 14px;
       padding: 12px;
-      border: 1.5px dashed #94a3b8;
+      border: 1.5px dashed var(--muted);
       border-radius: 14px;
-      background: rgba(248, 250, 252, 0.7);
+      background: var(--glass-card);
       text-align: center;
     }
     .upload-label {
       display: inline-block;
       padding: 7px 14px;
-      background: var(--primary);
+      background: #0077b6;
       color: white;
       border-radius: 8px;
       font-size: 0.8rem;
@@ -575,7 +687,7 @@
       display: none;
       margin-left: auto;
       margin-right: auto;
-      border: 1px solid #cbd5e1;
+      border: 1px solid var(--glass-border);
     }
 
     .toast {
@@ -593,6 +705,7 @@
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.25s;
+      border: 1px solid rgba(255,255,255,0.15);
     }
     .toast.show { opacity: 1; }
 
@@ -600,13 +713,21 @@
     @media (max-width: 640px) {
       .search-bar { display: none; }
       .hero-section {
-        flex-direction: column-reverse; /* Pindahkan logo ke atas teks */
+        flex-direction: column-reverse;
         align-items: flex-start;
         gap: 16px;
       }
       .hero-logo-slot {
         width: 84px;
         height: 84px;
+      }
+      .ios-segmented-control {
+        display: flex;
+        width: 100%;
+      }
+      .filter-btn {
+        padding: 8px 14px;
+        font-size: 0.8rem;
       }
       @keyframes driveTruck {
         0%   { left: 12%; transform: scaleX(-1) translateY(0); }
@@ -631,9 +752,14 @@
       <div class="search-bar">
         <input type="text" id="searchInput" placeholder="Cari susu cup, yogurt, prepack..." oninput="renderProducts()" />
       </div>
-      <button class="cart-trigger" onclick="toggleCart()">
-        🛒 Keranjang <span class="cart-badge" id="cartCount">0</span>
-      </button>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Ganti Mode Gelap / Terang" aria-label="Ganti Tema">
+          🌙
+        </button>
+        <button class="cart-trigger" onclick="toggleCart()">
+          🛒 Keranjang <span class="cart-badge" id="cartCount">0</span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -660,11 +786,15 @@
     </div>
   </div>
 
-  <div class="filters">
-    <button class="filter-btn active" onclick="setFilter('all', this)">Semua Produk</button>
-    <button class="filter-btn" onclick="setFilter('cup', this)">Susu Cup</button>
-    <button class="filter-btn" onclick="setFilter('pack', this)">Prepack & Minipack</button>
-    <button class="filter-btn" onclick="setFilter('yogurt', this)">Yogurt</button>
+  <!-- iOS Liquid Glass Segmented Tab Control -->
+  <div class="filters-wrapper">
+    <div class="ios-segmented-control" id="segmentedControl">
+      <div class="liquid-pill-indicator" id="pillIndicator"></div>
+      <button class="filter-btn active" onclick="setFilter('all', this)">Semua Produk</button>
+      <button class="filter-btn" onclick="setFilter('cup', this)">Susu Cup</button>
+      <button class="filter-btn" onclick="setFilter('pack', this)">Prepack & Minipack</button>
+      <button class="filter-btn" onclick="setFilter('yogurt', this)">Yogurt</button>
+    </div>
   </div>
 
   <main class="container">
@@ -722,7 +852,7 @@
           <option value="COD">Bayar di Tempat (COD)</option>
         </select>
       </div>
-      <button type="submit" class="checkout-btn" style="background: var(--primary);">Buat Pesanan Sekarang</button>
+      <button type="submit" class="checkout-btn" style="background: #0077b6;">Buat Pesanan Sekarang</button>
     </form>
   </div>
 
@@ -734,7 +864,7 @@
       <span class="status-pill" id="paymentStatusBadge">⏳ Menunggu Pembayaran</span>
     </div>
 
-    <div id="invoiceDetail" style="background:rgba(248,250,252,0.8); padding:14px; border-radius:12px; font-size:0.85rem; line-height:1.6; margin-bottom:16px; border: 1px solid #cbd5e1;"></div>
+    <div id="invoiceDetail" class="invoice-box"></div>
 
     <button class="checkout-btn" onclick="sendWhatsApp()" style="margin-bottom:8px;">📲 Konfirmasi Pesanan ke WhatsApp</button>
     <button class="add-cart-btn" style="background:var(--muted);" onclick="finishOrder()">Selesai & Kembali Belanja</button>
@@ -808,7 +938,7 @@
         emoji: '🍨',
         variants: [
           { name: 'Anggur', bg: 'linear-gradient(135deg, #e1bee7, #ba68c8)' },
-          { name: 'Stroberi', bg: 'linear-gradient(135deg, #e1bee7, #ba68c8)' },
+          { name: 'Stroberi', bg: 'linear-gradient(135deg, #ffcdd2, #f48fb1)' },
           { name: 'Mangga', bg: 'linear-gradient(135deg, #fff59d, #ffd54f)' }
         ]
       },
@@ -837,12 +967,54 @@
 
     const formatRp = (num) => 'Rp ' + num.toLocaleString('id-ID');
 
+    /* Dark Mode / Light Mode Handler */
+    function toggleTheme() {
+      const html = document.documentElement;
+      const btn = document.getElementById('themeToggle');
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        html.removeAttribute('data-theme');
+        btn.textContent = '🌙';
+        localStorage.setItem('susu-theme', 'light');
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        btn.textContent = '☀️';
+        localStorage.setItem('susu-theme', 'dark');
+      }
+    }
+
+    (function initTheme() {
+      const saved = localStorage.getItem('susu-theme');
+      if (saved === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.getElementById('themeToggle').textContent = '☀️';
+      }
+    })();
+
+    /* iOS Liquid Glass Sliding Pill */
+    function movePillIndicator(btn) {
+      const indicator = document.getElementById('pillIndicator');
+      const container = document.getElementById('segmentedControl');
+      if (!indicator || !btn || !container) return;
+
+      const offsetLeft = btn.offsetLeft - 5;
+      indicator.style.width = `${btn.offsetWidth}px`; indicator.style.transform = `translateX(${offsetLeft}px)`;
+
+      btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+
     function setFilter(cat, btn) {
       currentFilter = cat;
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      movePillIndicator(btn);
       renderProducts();
     }
+
+    window.addEventListener('resize', () => {
+      const activeBtn = document.querySelector('.filter-btn.active');
+      if (activeBtn) movePillIndicator(activeBtn);
+    });
 
     function selectVariant(prodId, varIdx) {
       selectedVariants[prodId] = varIdx;
@@ -998,8 +1170,8 @@
       const orderNum = 'INV-' + Math.floor(100000 + Math.random() * 900000);
       const total = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
 
-      const itemListHtml = cart.map(i => `• ${i.name} (${i.variant}) x${i.qty} = ${formatRp(i.price * i.qty)}`).join('<br>');
-      const itemListWa = cart.map(i => `- ${i.name} (${i.variant}) x${i.qty} = ${formatRp(i.price * i.qty)}`).join('%0A');
+      const itemListHtml = cart.map(i => `• ${i.name} (${i.variant}) x${i.qty} =${formatRp(i.price * i.qty)}`).join('<br>');
+      const itemListWa = cart.map(i => `- ${i.name} (${i.variant}) x${i.qty} =${formatRp(i.price * i.qty)}`).join('%0A');
 
       const statusBadge = document.getElementById('paymentStatusBadge');
       statusBadge.classList.remove('ready');
@@ -1035,69 +1207,3 @@
             </div>
             <span style="font-size:0.78rem; font-weight:600; color:var(--text);">A.n. Gata Abdil Rahman</span>
           </div>
-          <div class="upload-box">
-            <p style="font-size:0.78rem; color:var(--muted);">Sudah transfer? Upload foto/screenshot bukti transfer:</p>
-            <label for="proofInput" class="upload-label">📷 Pilih Foto Bukti Transfer</label>
-            <input type="file" id="proofInput" accept="image/*" style="display:none;" onchange="handleProofUpload(event)" />
-            <img id="proofPreview" class="preview-img" alt="Preview Bukti Transfer" />
-          </div>
-        `;
-        paymentWaInfo = '%0APembayaran: Transfer BCA (7651539358)';
-      } else {
-        statusBadge.textContent = '🚚 Bayar di Tempat (COD)';
-        statusBadge.classList.add('ready');
-        paymentSectionHtml = `
-          <div class="pay-card">
-            <strong style="font-size:0.85rem; color:var(--success);">Metode Bayar di Tempat (COD)</strong>
-            <p style="font-size:0.78rem; color:var(--muted); margin-top:4px;">Siapkan uang pas sejumlah <strong>${formatRp(total)}</strong> saat kurir tiba di lokasi.</p>
-          </div>
-        `;
-        paymentWaInfo = '%0APembayaran: COD (Bayar di Tempat)';
-      }
-
-      document.getElementById('invoiceId').textContent = `Nomor Pesanan: ${orderNum}`;
-      document.getElementById('invoiceDetail').innerHTML = `
-        <strong>Pemesan:</strong> ${name} (${phone})<br>
-        <strong>Alamat:</strong> ${address}<br>
-        <strong>Pengiriman:</strong> ${shipping}<br>
-        <hr style="margin:8px 0; border:0; border-top:1px solid #cbd5e1;">
-        ${itemListHtml}
-        <hr style="margin:8px 0; border:0; border-top:1px solid #cbd5e1;">
-        <div style="display:flex; justify-content:space-between; font-size:0.95rem;">
-          <strong>Total Tagihan:</strong>
-          <strong style="color:var(--primary);">${formatRp(total)}</strong>
-        </div>
-        ${paymentSectionHtml}
-      `;
-
-      lastOrderText = `Halo Admin Susu Murni Nasional! Saya mau konfirmasi pesanan:%0A%0A*${orderNum}*%0ANama: ${name}%0AAlamat: ${address}%0APengiriman: ${shipping}${paymentWaInfo}%0A%0A*Detail Pesanan:*%0A${itemListWa}%0A%0A*Total Bayar: ${formatRp(total)}*`;
-
-      document.getElementById('checkoutModal').classList.remove('open');
-      document.getElementById('invoiceModal').classList.add('open');
-    }
-
-    function sendWhatsApp() {
-      const proofNote = hasUploadedProof
-        ? '%0A%0A_(Bukti transfer sudah saya siapkan, akan saya kirimkan setelah pesan ini)_'
-        : '';
-      window.open(`https://wa.me/6281399970315?text=${lastOrderText}${proofNote}`, '_blank');
-    }
-
-    function finishOrder() {
-      cart = [];
-      updateCartUI();
-      closeAll();
-    }
-
-    function showToast(msg) {
-      const t = document.getElementById('toast');
-      t.textContent = msg;
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 2200);
-    }
-
-    renderProducts();
-    updateCartUI();
-  </script>
-</body>
-</html>
